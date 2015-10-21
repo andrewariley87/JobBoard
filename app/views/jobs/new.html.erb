@@ -1,0 +1,20 @@
+<%= form_for @job do |f| %>
+	<p>
+		<h1>Create New Job Posting</h1>
+	</p>
+
+	<p>
+		<%= f.label :title %><br>
+		<%= f.text_field :title %>
+	</p>
+
+	<p>
+		<%= f.label :description %><br>
+		<%= f.text_area :description %>
+	</p>
+
+	<p>
+		<%= f.submit %>
+	</p>
+
+<% end %>
