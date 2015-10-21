@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+
   def index
     @jobs = Job.all
   end
@@ -7,8 +8,18 @@ class JobsController < ApplicationController
     @job = Job.find_by(params[:id])
   end
 
-  def create
+  def new
+  	@job = Job.new
   end
 
-  def edit
+  def create
+  	@job = Job.new(job_params)
+  end
+
+  private
+
+  def job_params
+  	params.require(:job).permit(:title, :description)
+  end
+
 end
