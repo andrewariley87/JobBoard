@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class JobsControllerTest < ActionController::TestCase
-  	
+
 	test "that the index returns the list of all jobs" do
 		get :index
 
 		refute_nil assigns[:jobs]
 		assert_response :success
-	end 
+	end
 
 	test "job creates successfully" do
 		post :create, { job: {title: "test title", description: "test description"} }
@@ -17,9 +17,9 @@ class JobsControllerTest < ActionController::TestCase
 		assert_equal job.title, "test title"
 		assert_equal job.description, "test description"
 		assert_redirected_to jobs_path
-	end 
+	end
 
-	test "job doesn't create successfully" do
+	test "job doesn't create successfully because there is no title" do
 		post :create, { job: {title: "", description: "test description"} }
 
 		job = assigns[:job]
@@ -27,6 +27,15 @@ class JobsControllerTest < ActionController::TestCase
 		refute job.valid?
 		assert_template :new
 	end
+
+  test "job doesn't create successfully because there is no description" do
+    post :create, { job: {title: "test title", description: ""} }
+
+    job = assigns[:job]
+
+    refute job.valid?
+    assert_template :new
+  end
 
 	test "show method" do
 		record = jobs(:one)
