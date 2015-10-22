@@ -14,11 +14,13 @@ class JobsController < ApplicationController
 
   def create
   	@job = Job.new(job_params)
-  	
+
   	if @job.save
+      flash[:notice] = 'Post created successfully'
   		redirect_to jobs_path
   	else
-  		render :new
+  		flash[:notice] = "Post must have a title and description"
+      render :new
   	end
   end
 
